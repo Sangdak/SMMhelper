@@ -1,12 +1,7 @@
-#  Взаимодействие с API соцсетей и мессенджеров.
-
-def make_post_vk():
-    pass
+from vk_api import make_post_at_vk_group_wall
 
 
-def make_post_tg():
-    pass
+post_image_path = './imgs/1.jpg'
+post_text = 'Это текстовое содержание поста.'
 
-
-def make_post_ok():
-    pass
+make_post_at_vk_group_wall(post_image_path, post_text)
