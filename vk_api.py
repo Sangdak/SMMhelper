@@ -8,8 +8,8 @@ load_dotenv()
 
 
 def make_post_at_vk_group_wall(img_path: str, text: str = 'post text') -> None:
-    group_id: str = os.getenv('VK_GROUP_ID')
     token: str = os.getenv('VK_ACCESS_TOKEN')
+    group_id: str = os.getenv('VK_GROUP_ID')
 
     url_for_uploading = _get_photo_upload_link(group_id, token)
 
