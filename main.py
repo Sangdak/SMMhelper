@@ -4,6 +4,8 @@ import time
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+import requests
+from pathlib import Path
 
 
 REFRESH_TABLE_PERIOD_IN_SECONDS: int = 10
@@ -34,6 +36,17 @@ def get_text_from_file(text_path: str) -> str:
     return post_text
 
 
+def get_img_from_link(img_url: str):
+    img_name = img_url.split('/')[-1]
+    response = requests.get(img_url)
+    response.raise_for_status()
+
+    filepath = Path.cwd() / 'imgs' / img_name
+    with open(filepath, "wb") as img_file:
+        img_file.write(response.content)
+    return img_name
+
+
 def main():
     load_dotenv()
     task_queue_lenght: int = 0
@@ -54,7 +67,11 @@ def main():
                     download_files_to_dirs()
 
                 if task['pub_time'][:-3] == current_hour_min:
-                    img_path = f"./imgs/{task['img_link']}"
+                    if '/' in task['img_link']:
+                        image_name = get_img_from_link(task['img_link'])
+                        img_path = f"./imgs/{image_name}"
+                    else:
+                        img_path = f"./imgs/{task['img_link']}"
                     text = get_text_from_file(f"./txts/{task['text_link']}")
 
                     make_post(img_path, text, task['post_vk'], task['post_ok'], task['post_tg'])
