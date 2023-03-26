@@ -26,7 +26,7 @@ def get_files_from_folder(folder_id):
 
 
 def send_post_on_tg():
-    bot = telegram.Bot(token=bot_api_key)
+    # bot = telegram.Bot(token=bot_api_key)
 
     CREDENTIALS_FILE = 'creds.json'
 
@@ -54,6 +54,8 @@ def send_post_on_tg():
         text = f.read()
 
     bot.send_photo(chat_id=CHANNEL_ID, photo=img, caption=text)
+
+
 if __name__ == "__main__":
     bot_api_key = '5903927146:AAEI3horMhwAGg0MPKsFtG2jXCdKPAPFADk'
     tg_chat_id = '1001815682844'

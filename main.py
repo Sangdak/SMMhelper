@@ -74,9 +74,9 @@ def main():
                         img_path = f"./imgs/{task['img_link']}"
                     text = get_text_from_file(f"./txts/{task['text_link']}")
 
-                    make_post(img_path, text, task['post_vk'], task['post_ok'], task['post_tg'])
+                    post_tg_link, post_vk_link = make_post(img_path, text, task['post_vk'], task['post_ok'], task['post_tg'])
 
-                    add_to_g_sheet(task['row_num'])
+                    add_to_g_sheet(task['row_num'], post_tg_link, post_vk_link)
 
         time.sleep(REFRESH_TABLE_PERIOD_IN_SECONDS)
 
