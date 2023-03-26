@@ -18,6 +18,6 @@
 
 **4.** Click to `Create credentials` and choose your service account. 
    
-   Next click to keys > add keys > create keys. Choose `JSON format`. There is your `credentials.json` file for accsess to Google Drive Api. 
+   Next click to keys > add keys > create keys. Choose `JSON format`. There is your `credentials.json` file for access to Google Drive Api. 
    
 **5.** Now back to the second step and enable `Google Sheets`.
