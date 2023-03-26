@@ -40,17 +40,27 @@ def get_g_sheet_content() -> list[list]:
     return values['values']
 
 
-def add_to_g_sheet(row_num):
-    cell = f"J{row_num}"
+def add_to_g_sheet(row_num: int, post_tg_link: str, post_vk_link: str):
+    # cell = f"J{row_num}"
     values = service.spreadsheets().values().batchUpdate(
         spreadsheetId=SPREADSHEET_ID,
         body={
             "valueInputOption": "USER_ENTERED",
             "data": [
                 {
-                    "range": cell,
+                    "range": f"J{row_num}",
                     "majorDimension": "ROWS",
                     "values": [["POSTED"]]
+                },
+                {
+                    "range": f"H{row_num}",
+                    "majorDimension": "ROWS",
+                    "values": [[post_tg_link]]
+                },
+                {
+                    "range": f"F{row_num}",
+                    "majorDimension": "ROWS",
+                    "values": [[post_vk_link]]
                 },
                 # {
                 #     "range": "D5:E6",
@@ -64,7 +74,7 @@ def add_to_g_sheet(row_num):
     # exit()
 
 
-def get_files_info_from_g_drive() -> dict:
+def get_files_info_from_g_drive():
     """Получает информацию о всех сущностях, содержащихся на гугл-диске"""
     service = apiclient.discovery.build('drive', 'v3', credentials=credentials)
     results = service.files().list(

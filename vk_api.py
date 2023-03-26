@@ -7,7 +7,7 @@ import requests
 load_dotenv()
 
 
-def make_post_at_vk_group_wall(img_path: str, text: str = 'post text') -> None:
+def make_post_at_vk_group_wall(img_path: str, text: str = 'post text') -> str:
     token: str = os.getenv('VK_ACCESS_TOKEN')
     group_id: str = os.getenv('VK_GROUP_ID')
 
@@ -24,7 +24,9 @@ def make_post_at_vk_group_wall(img_path: str, text: str = 'post text') -> None:
 
     owner_id, photo_id = _upload_photo_at_wall(photo, server, img_hash, group_id, token)
 
-    _post_photo_at_wall(owner_id, photo_id, text, group_id, token)
+    vk_response_json = _post_photo_at_wall(owner_id, photo_id, text, group_id, token)
+    vk_wall_post_id: int = vk_response_json['response']['post_id']
+    return f'https://vk.com/club{group_id}?w=wall-{group_id}_{vk_wall_post_id}'
 
 
 def _get_photo_upload_link(group_id: str, token: str) -> str:

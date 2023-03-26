@@ -2,7 +2,7 @@ from vk_api import make_post_at_vk_group_wall
 from tg_api import make_post_at_tg_group
 
 
-def make_post(post_image_path: str, post_text: str, post_vk: str ='NO', post_ok: str ='NO', post_tg: str ='NO') -> None:
+def make_post(post_image_path: str, post_text: str, post_vk: str ='NO', post_ok: str ='NO', post_tg: str ='NO') -> str:
     """
     Размещает полученное изображение и текст в виде поста в соцсети с флагом 'YES'
     :param post_image_path: str: путь к файлу изображения
@@ -13,6 +13,8 @@ def make_post(post_image_path: str, post_text: str, post_vk: str ='NO', post_ok:
     :return: None
     """
     if post_vk == 'YES':
-        make_post_at_vk_group_wall(post_image_path, post_text)
+        post_vk_link = make_post_at_vk_group_wall(post_image_path, post_text)
     if post_tg == 'YES':
-        make_post_at_tg_group(post_image_path, post_text)
+        post_tg_link = make_post_at_tg_group(post_image_path, post_text)
+
+    return post_tg_link, post_vk_link
