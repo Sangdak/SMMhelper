@@ -1,20 +1,21 @@
+from dotenv import load_dotenv
+import os
+import io
+from pathlib import Path
+import httplib2
 from pprint import pprint
 
-import httplib2
 import apiclient.discovery
 from oauth2client.service_account import ServiceAccountCredentials
-from pathlib import Path
-
-#  from google.oauth2 import service_account
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
-#  from googleapiclient.discovery import build
-import io
 
 
-CREDENTIALS_FILE = 'creds.json'
-SPREADSHEET_ID = '1fUgQWYFaqr8FuHIyJlrQp-ztrPpOugH9e0KJB6_aUSQ'
-IMG_FOLDER_ID = '1ka9NV35hfbL2p8EZf6Xk9CsmNcp_YYmk'
-TEXT_FOLDER_ID = '12zqTfyWqtx758A3Im5z2Utn4OP43oVdm'
+load_dotenv()
+
+CREDENTIALS_FILE: str = os.getenv('CREDENTIALS_FILE')
+SPREADSHEET_ID: str = os.getenv('SPREADSHEET_ID')
+IMG_FOLDER_ID: str = os.getenv('IMG_FOLDER_ID')
+TEXT_FOLDER_ID: str = os.getenv('TEXT_FOLDER_ID')
 
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
     CREDENTIALS_FILE,
@@ -40,8 +41,8 @@ def get_g_sheet_content() -> list[list]:
     return values['values']
 
 
-def add_to_g_sheet(row_num: int, post_tg_link: str, post_vk_link: str):
-    # cell = f"J{row_num}"
+def add_to_g_sheet(row_num: int, post_tg_link: str = 'Error', post_vk_link: str = 'Error'):
+    """Добавляет в обрабатываемую строку таблицы информацию о размещённых постах (если она имеется)"""
     values = service.spreadsheets().values().batchUpdate(
         spreadsheetId=SPREADSHEET_ID,
         body={
@@ -62,11 +63,6 @@ def add_to_g_sheet(row_num: int, post_tg_link: str, post_vk_link: str):
                     "majorDimension": "ROWS",
                     "values": [[post_vk_link]]
                 },
-                # {
-                #     "range": "D5:E6",
-                #     "majorDimension": "ROWS",
-                #     "values": [["This is D5", "This is D6"], ["This is E5", "=5+5"]]
-                # }
             ]
         }
     ).execute()
@@ -79,7 +75,6 @@ def get_files_info_from_g_drive():
     service = apiclient.discovery.build('drive', 'v3', credentials=credentials)
     results = service.files().list(
         pageSize=10,
-        # fields="nextPageToken, files(id, name, mimeType, parents, createdTime, permissions, quotaBytesUsed)",
         fields="nextPageToken, files(id, name, mimeType, parents)",
     ).execute()
 

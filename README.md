@@ -39,8 +39,11 @@ This project is an SMM helper, that works with Google sheets, allows you to publ
    You need to put your values here.
 
 2. Choose time and date in your Google Sheets, put links of image and text to the appropriate column and run the script using
-   
-   `python main.py`
+
+3. 
+``` python
+python3 main.py
+```
 
 
 
