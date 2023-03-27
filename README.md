@@ -3,7 +3,17 @@ This project is an SMM helper, that works with Google sheets, allows you to publ
 
 ## At first
 1. `Python3` should already be installed.
-2. Create .env file and add this:
+
+3. To make the script work correctly, you need to get the Google API key by following the [instructions](https://github.com/Sangdak/SMMhelper/blob/master/instruction%20for%20google%20api.md),  Telegram API key, using [this](https://botcreators.ru/blog/botfather-instrukciya/) and VK API key, using [this](https://rdd.media/kak-poluchit-access_token-vkontakte/).
+   
+   Next you need to create google sheets like this:
+   ![image-2023-03-26-15-44-57.png](https://i.postimg.cc/Jhr0NY8Y/image-2023-03-26-15-44-57.png)
+   
+   and images and texts directories in your Google Drive.
+
+4. Download this repository. 
+ 
+ 2. Create .env file and add this:
   ```
   VK_API  
   VK_APP_CLIENT_ID=
@@ -26,14 +36,6 @@ IMAGES_FOLDER_NAME=imgs
 TEXTS_FOLDER_NAME=txts
 ```
 
-3. To make the script work correctly, you need to get the Google API key by following the [instructions.](https://github.com/Sangdak/SMMhelper/blob/master/instruction%20for%20google%20api.md)
-   
-   Next you need to create google sheets like this:
-   ![image-2023-03-26-15-44-57.png](https://i.postimg.cc/Jhr0NY8Y/image-2023-03-26-15-44-57.png)
-   
-   and create images and texts directories in your Google Drive.
- 
-4. Download this repository. 
 5. Install dependencies using:
   
    `pip3 install -r requirements.txt`
