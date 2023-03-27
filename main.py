@@ -51,7 +51,8 @@ def get_img_from_link(img_url: str, img_folder: str) -> str:
 def main():
     load_dotenv()
 
-    refresh_table_seconds = int(os.getenv('REFRESH_TABLE_PERIOD_IN_SECONDS'))
+    # refresh_table_seconds = int(os.getenv('REFRESH_TABLE_PERIOD_IN_SECONDS'))
+    refresh_table_seconds = 10
     imgs_store_folder: str = os.getenv('IMAGES_FOLDER_NAME')
     task_queue_lenght: int = 0
 
@@ -79,18 +80,28 @@ def main():
                     post_tg_link = ''
                     post_vk_link = ''
 
-                    try:
-                        post_tg_link, post_vk_link = make_post(
-                            img_path,
-                            text,
-                            task['post_vk'],
-                            task['post_ok'],
-                            task['post_tg']
-                        )
-                    except Exception:
-                        pass
-                    finally:
-                        add_to_g_sheet(task['row_num'], post_tg_link, post_vk_link)
+                    # try:
+                    #     post_tg_link, post_vk_link = make_post(
+                    #         img_path,
+                    #         text,
+                    #         task['post_vk'],
+                    #         task['post_ok'],
+                    #         task['post_tg']
+                    #     )
+                    # except Exception:
+                    #     pass
+                    # finally:
+                    #     add_to_g_sheet(task['row_num'], post_tg_link, post_vk_link)
+
+                    post_tg_link, post_vk_link = make_post(
+                        img_path,
+                        text,
+                        task['post_vk'],
+                        task['post_ok'],
+                        task['post_tg']
+                    )
+
+                    add_to_g_sheet(task['row_num'], post_tg_link, post_vk_link)
 
         time.sleep(refresh_table_seconds)
 

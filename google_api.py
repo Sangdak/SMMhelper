@@ -12,8 +12,8 @@ from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 
 load_dotenv()
 
-CREDENTIALS_FILE: str = os.getenv('CREDENTIALS_FILE')
-SPREADSHEET_ID: str = os.getenv('SPREADSHEET_ID')
+CREDENTIALS_FILE = 'creds.json'
+SPREADSHEET_ID = '1fUgQWYFaqr8FuHIyJlrQp-ztrPpOugH9e0KJB6_aUSQ'
 IMG_FOLDER_ID: str = os.getenv('IMG_FOLDER_ID')
 TEXT_FOLDER_ID: str = os.getenv('TEXT_FOLDER_ID')
 

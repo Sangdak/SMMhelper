@@ -13,8 +13,18 @@ def make_post(post_image_path: str, post_text: str, post_vk: str ='NO', post_ok:
     :return: None
     """
     if post_vk == 'YES':
-        post_vk_link = make_post_at_vk_group_wall(post_image_path, post_text)
+        try:
+            post_vk_link = make_post_at_vk_group_wall(post_image_path, post_text)
+        except Exception:
+            post_vk_link: str = 'Error'
+    else:
+        post_vk_link: str = post_vk
     if post_tg == 'YES':
-        post_tg_link = make_post_at_tg_group(post_image_path, post_text)
+        try:
+            post_tg_link = make_post_at_tg_group(post_image_path, post_text)
+        except Exception:
+            post_tg_link: str = 'Error'
+    else:
+        post_tg_link: str = post_tg
 
     return post_tg_link, post_vk_link
